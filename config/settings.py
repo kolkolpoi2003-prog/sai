@@ -149,6 +149,9 @@ CSRF_TRUSTED_ORIGINS = os.environ.get(
 
 # HTTPS-only settings (enabled in production when SSL is ready)
 USE_SSL = os.environ.get('DJANGO_USE_SSL', 'False').lower() in ('true', '1', 'yes')
+print(f"DEBUG: {DEBUG}")
+print(f"USE_SSL: {USE_SSL}")
+
 if USE_SSL and not DEBUG:
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 31536000  # 1 year
@@ -157,6 +160,9 @@ if USE_SSL and not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    print("SSL REDIRECT: ENABLED")
 else:
+    SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
+    print("SSL REDIRECT: DISABLED")
